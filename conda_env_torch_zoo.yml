@@ -69,7 +69,7 @@ dependencies:
   - pytest=7.1.2=py38h578d9bd_0
   - python=3.8.5=h7579374_1
   - python_abi=3.8=1_cp38
-  - pytorch=1.7.1=py3.8_cuda11.0.221_cudnn8.0.5_0
+  - pytorch
   - pyyaml=5.3.1=py38h8df0ef7_1
   - readline=8.0=h7b6447c_0
   - regex=2022.3.15=py38h7f8727e_0
@@ -78,7 +78,7 @@ dependencies:
   - setuptools=49.6.0=py38_0
   - six=1.15.0=py_0
   - sqlite=3.33.0=h62c20be_0
-  - tbb=2020.2=hc9558a2_0
+  - tbb
   - tk=8.6.10=hbc83047_0
   - tomli=2.0.1=pyhd8ed1ab_0
   - torchaudio=0.7.2=py38
