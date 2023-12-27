@@ -14,7 +14,7 @@ for ARGUMENT in "$@"; do
 	export "$KEY"="$VALUE"
 done
 
-actionformer_subset="/data/i5O/UCF101-THUMOS/THUMOS14/actionformer_subset/"
+actionformer_subset="/data/i5O/THUMOS14/actionformer_subset/"
 
 # -------------------------------------------------
 
@@ -49,10 +49,13 @@ lst="$lst]"
 
 # run the script
 python ./main.py \
-  feature_type=r21d \
-  device="cuda:0" \
+  feature_type=i3d \
+  device="cuda:1" \
+  flow_type=raft \
   video_paths=$lst \
-  output_path="/root/models/video_features/output/" \
+  stack_size=16 \
+  step_size=4 \
+  output_path="/root/models/video_features/output_video-features_thumos_i3d/" \
   on_extraction="save_numpy"
 
 
