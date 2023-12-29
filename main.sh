@@ -50,7 +50,7 @@ lst="$lst]"
 # run the script
 python ./main.py \
   feature_type=i3d \
-  device="cuda:1" \
+  device="cuda:0" \
   flow_type=raft \
   video_paths=$lst \
   stack_size=16 \
