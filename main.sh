@@ -50,12 +50,13 @@ lst="$lst]"
 # run the script
 python ./main.py \
   feature_type=i3d \
-  device="cuda:0" \
+  device="cuda:1" \
+  streams=flow \
   flow_type=raft \
   video_paths=$lst \
   stack_size=16 \
   step_size=4 \
-  output_path="/root/models/video_features/output_video-features_thumos_i3d/" \
+  output_path="/root/models/video_features/output_video-features_thumos_i3d_flow/" \
   on_extraction="save_numpy"
 
 

@@ -1,10 +1,15 @@
 from omegaconf import OmegaConf
 from tqdm import tqdm
+from pathlib import Path
+
+import torch
 
 from utils.utils import build_cfg_path, form_list_from_user_input, sanity_check
 
 
 def main(args_cli):
+    torch.set_num_threads(8)
+
     # config
     args_yml = OmegaConf.load(build_cfg_path(args_cli.feature_type))
     args = OmegaConf.merge(args_yml, args_cli)  # the latter arguments are prioritized
@@ -40,7 +45,8 @@ def main(args_cli):
     extractor = Extractor(args)
 
     # unifies whatever a user specified as paths into a list of paths
-    print(args.output_path)
+    # print("output path =", args.output_path)
+    # Path(args.output_path).mkdir(parents=True, exist_ok=True)
 
     video_paths = form_list_from_user_input(
         args.video_paths,

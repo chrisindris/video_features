@@ -52,9 +52,20 @@ def show_predictions_on_dataset(logits: torch.FloatTensor, dataset: Union[str, L
 
 
 def make_path(output_root, video_path, output_key, ext):
+    input_root = "/data/i5O/i5OData/"
+
+    video_path = video_path.replace(input_root, "")
+
     # extract file name and change the extention
-    fname = f"{Path(video_path).stem}_{output_key}{ext}"
+    fname = f"{video_path.replace('.mp4', '')}_{output_key}{ext}"  # f"{Path(video_path).stem}_{output_key}{ext}"
+    print(fname)
     # construct the paths to save the features
+
+    output_path = os.path.join(output_root, fname)
+    print(output_path)
+
+    Path(os.path.dirname(output_path)).mkdir(parents=True, exist_ok=True)
+
     return os.path.join(output_root, fname)
 
 
@@ -103,9 +114,9 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
         Path(p).stem
         for p in form_list_from_user_input(args.video_paths, args.file_with_video_paths)
     ]
-    assert len(filenames) == len(
-        set(filenames)
-    ), "Non-unique filenames. See video_features/issues/54"
+    # assert len(filenames) == len(
+    #    set(filenames)
+    # ), "Non-unique filenames. See video_features/issues/54"
     assert os.path.relpath(args.output_path) != os.path.relpath(
         args.tmp_path
     ), "The same path for out & tmp"
@@ -150,6 +161,15 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
     if hasattr(args, "model_name"):
         subs.append(args.model_name)
         # may add `finetuned_on` item
+    subs.append(
+        "stack_size"
+        + str(args.stack_size)
+        + "step_size"
+        + str(args.step_size)
+        + "extraction_fps"
+        + str(args.extraction_fps)
+    )
+
     real_output_path = args.output_path
     real_tmp_path = args.tmp_path
     for p in subs:
@@ -158,6 +178,7 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
         real_tmp_path = os.path.join(real_tmp_path, p.replace("/", "_"))
     args.output_path = real_output_path
     args.tmp_path = real_tmp_path
+    Path(args.output_path).mkdir(parents=True, exist_ok=True)
 
 
 def form_list_from_user_input(
