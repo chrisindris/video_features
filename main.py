@@ -8,12 +8,14 @@ from utils.utils import build_cfg_path, form_list_from_user_input, sanity_check
 
 
 def main(args_cli):
-    torch.set_num_threads(8)
+    torch.set_num_threads(16)
 
     # config
     args_yml = OmegaConf.load(build_cfg_path(args_cli.feature_type))
     args = OmegaConf.merge(args_yml, args_cli)  # the latter arguments are prioritized
     # OmegaConf.set_readonly(args, True)
+
+    print(args)
     sanity_check(args)
 
     # verbosing with the print -- haha (TODO: logging)

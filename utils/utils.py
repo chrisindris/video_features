@@ -110,6 +110,10 @@ def sanity_check(args: Union[argparse.Namespace, DictConfig]):
     assert (
         args.file_with_video_paths or args.video_paths
     ), "`video_paths` or `file_with_video_paths` must be specified"
+
+    # print("args.video_paths", args.video_paths)
+    # print("args.file_with_video_paths", args.file_with_video_paths)
+
     filenames = [
         Path(p).stem
         for p in form_list_from_user_input(args.video_paths, args.file_with_video_paths)
@@ -215,13 +219,14 @@ def form_list_from_user_input(
             # remove empty lines
             path_list = [path for path in path_list if len(path) > 0]
 
+    # HACK: the program currently works with the hierarchical output structure and doesn't overwrite, but the ignore_existing is best done here.
     # remove features already extracted from the list to extract
-    if ignore_existing:
-        str_output_dir = str(os.listdir(output_path))
-        for path in path_list:
-            if Path(path).stem in str_output_dir:
-                print(Path(path).stem + " already extracted")
-                path_list.remove(path)
+    # if ignore_existing:
+    #    str_output_dir = str(os.listdir(output_path))
+    #    for path in path_list:
+    #        if Path(path).stem in str_output_dir:
+    #            print(Path(path).stem + " already extracted")
+    #            path_list.remove(path)
 
     # sanity check: prints paths which do not exist
     for path in path_list:

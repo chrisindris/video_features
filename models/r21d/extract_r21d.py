@@ -63,7 +63,7 @@ class ExtractR21D(BaseExtractor):
                 Normalize(
                     mean=[0.43216, 0.394666, 0.37645], std=[0.22803, 0.22145, 0.216989]
                 ),
-                CenterCrop((112, 112)),
+                CenterCrop((112, 112)),  # Resize((112, 112)) used for simple-crop
             ]
         )
         self.show_pred = args.show_pred

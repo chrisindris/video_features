@@ -35,7 +35,7 @@ lst="["
 
 count=0
 
-vid_list="$(find $dataset_head -type f -wholename "*/${dataset_side}/${dataset_subset}/*" | sort | head -n $end)"
+vid_list="$(find $dataset_head -type f -wholename "*/${dataset_side}/${dataset_subset}/*.mp4" | sort | head -n $end)"
 #echo $vid_list
 vid_list_len=$(echo $vid_list | wc -w)
 #echo $vid_list_len
@@ -81,10 +81,10 @@ echo $lst
 
 time python main.py \
   feature_type=r21d \
-  model_name=r2plus1d_34_32_ig65m_ft_kinetics \
+  model_name=r2plus1d_18_16_kinetics \
   stack_size=16 \
   step_size=4 \
-  device="cuda:1" \
+  device="cuda:0" \
   video_paths=$lst \
   on_extraction=save_numpy \
   output_path=/data/i5O/i5OData/video_features/
